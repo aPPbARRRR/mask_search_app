@@ -4,9 +4,14 @@ import 'package:mask_store_app/mask/presentation/widget/stores_list_view.dart';
 
 import '../../business/model/store.dart';
 
-class StoreScreen extends StatelessWidget {
+class StoreScreen extends StatefulWidget {
   const StoreScreen({super.key});
 
+  @override
+  State<StoreScreen> createState() => _StoreScreenState();
+}
+
+class _StoreScreenState extends State<StoreScreen> {
   @override
   Widget build(BuildContext context) {
     final StoresViewModel viewModel = StoresViewModel();
@@ -27,7 +32,18 @@ class StoreScreen extends StatelessWidget {
                   '마스크 재고 있는 곳 : ${viewModel.stores.where((store) => store.remainStat != 'break').length} 개소'),
             ),
             body: viewModel.stores.length != 0
-                ? StoresListView(stores: viewModel.stores)
+                ? Column(
+                    children: [
+                      Expanded(
+                        child: RefreshIndicator(
+                            onRefresh: () async {
+                              await viewModel.fetchData();
+                              setState(() {});
+                            },
+                            child: StoresListView(stores: viewModel.stores)),
+                      ),
+                    ],
+                  )
                 : Center(
                     child: Text('검색결과가 없습니다.'),
                   ),
