@@ -10,7 +10,6 @@ class StoreRepositoryImpl implements StoreRepository {
   Future<List<Store>> fetchStores() async {
     List<StoreDto> storeDtos =
         await dataSource.fetchStoresAsDtos(url: maskApiUrl);
-    print(storeDtos.map((dto) => Store.fromDto(dto)).toList());
     return storeDtos.map((dto) => Store.fromDto(dto)).toList();
   }
 }

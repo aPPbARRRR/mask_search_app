@@ -1,5 +1,6 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
+import 'package:mask_store_app/mask/presentation/widget/store_container.dart';
 
 import '../../business/model/store.dart';
 
@@ -17,11 +18,7 @@ class StoresListView extends StatelessWidget {
         ...stores
             .map((store) => Padding(
                   padding: EdgeInsets.all(10),
-                  child: Container(
-                    height: 100,
-                    width: 200,
-                    color: Colors.amber,
-                  ),
+                  child: StoreContainer(store: store),
                 ))
             .toList()
       ],

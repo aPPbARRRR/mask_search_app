@@ -20,9 +20,11 @@ class StoreScreen extends StatelessWidget {
                 child: CircularProgressIndicator(),
               ),
             );
+
           return Scaffold(
             appBar: AppBar(
-              title: Text('검색 결과 : ${viewModel.stores.length} 개소'),
+              title: Text(
+                  '마스크 재고 있는 곳 : ${viewModel.stores.where((store) => store.remainStat != 'break').length} 개소'),
             ),
             body: viewModel.stores.length != 0
                 ? StoresListView(stores: viewModel.stores)
